@@ -2,14 +2,8 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.0/axios.min.js"
-        integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer">
-    </script>
-    <scripts src="/src/index.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.0/axios.js" integrity="sha512-MNW6IbpNuZZ2VH9ngFhzh6cUt8L/0rSVa60F8L22K1H72ro4Ki3M/816eSDLnhICu7vwH/+/yb8oB3BtBLhMsA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- <scripts src="/src/index.js"></script> -->
     
     <title>Acme HR</title>
 </head>
@@ -19,13 +13,14 @@
     <ul>
         <script>
         const ul = document.querySelector('ul');
-        const init = async () => {
-            const response = await axios.get('/api/employees').data;
-            const html = employees.map(employee => {
-                return
-                `<li> ${employee.name} </li>`;
-            }).join('');
-            ul.innerHTML = html;
+        const init = async() => {
+            const response = await axios.get('./api/employees').data;
+            console.log(response);
+            // const html = employees.map(employee => {
+            //     return
+            //     `<li> ${employee.name} </li>`;
+            // }).join('');
+            // ul.innerHTML = html;
         };
         
         init();

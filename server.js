@@ -2,6 +2,7 @@ const express = require('express');
 const Sequelize = require('sequelize');
 const conn = new Sequelize(process.env.DATABASE_URl ||'postgres://localhost/acme_things')
 const path = require('path');
+const { connect } = require('http2');
 
 const app = express();
 
@@ -12,7 +13,7 @@ const Employee = conn.define('employee', {
     }
 })
 
-app.use('/src', express.static(path.join(__dirname, 'src')));
+// app.use('/src', express.static(path.join(__dirname, 'src')));
 
 app.get('/', (req, res, next) => res.sendFile(path.join(__dirname, 'index.html')))
 
@@ -32,20 +33,25 @@ app.get('/api/employees', async(req, res, next) => {
     }
 });
 
-const syncAndSeed = async() => {
-    await conn.sync({ force: true });
-    const [moe, lucy, ethyl, joe, larry, tim] = await Promise.all(
-        ['moe', 'lucy', 'ethy', 'joe', 'larry', 'tim']
-	    .map ( name => Employee.create({ name }))
-    );
-};
+// const syncAndSeed = async() => {
+//     await conn.sync({ force: true });
+//     const [moe, lucy, ethyl, joe, larry, tim] = await Promise.all(
+//         ['moe', 'lucy', 'ethy', 'joe', 'larry', 'tim']
+// 	    .map ( name => Employee.create({ name }))
+//     );
+// };
 
 
 
 
 const init = async() => {
     try{
-        await syncAndSeed();
+        // await syncAndSeed();
+        await conn.sync({ force: true});
+        await Employee.create({ name: 'lucy'})
+        await Employee.create({ name: 'ben'})
+        await Employee.create({ name: 'ken'})
+        await Employee.create({ name: 'tarn'})
     }catch(e){
         console.log(e)
     }
